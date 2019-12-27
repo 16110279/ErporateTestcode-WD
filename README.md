@@ -7,7 +7,6 @@ PHP, Jqury, AJAX
 # Framework
 Laravel Framework 6.8.0 <br>
 Bootstrap 4 <br>
-Datatable
 
 # Admin Panel Template
 Ela Admin
