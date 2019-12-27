@@ -244,7 +244,10 @@ class PelayanController extends Controller
         $count = Cart::all()->sum('item_subtotal');
         // $laporan = Transaction::with('transactionItem')->get();
 
-        $tr = Transaction::where('user_id', $uid)->get();
+        $tr = Transaction::with('TransactionItem.product')->where('user_id', $uid)->get();
+
+        $data = TransactionItem::with('Transaction', 'Product')->get();
+
 
 
         $laporan = TransactionItem::with('transaction', 'product', 'picture')->get();

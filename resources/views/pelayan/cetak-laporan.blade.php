@@ -1,4 +1,4 @@
-{{-- @dump($lp) --}}
+{{-- @dump($tr) --}}
                                    <h1>LAPORAN</h1>
                                      Nama Karyawan :   {{ Auth::user()->name }}
                                      <br>
@@ -22,6 +22,7 @@
       <th scope="col">Order ID</th>
       <th scope="col">Total</th>
       <th scope="col">Status</th>
+      <th scope="col">Item</th>
       <th scope="col">Tanggal Order</th>
     </tr>
   </thead>
@@ -32,6 +33,11 @@
       <td>{{ $item->transaction_code }}</td>
       <td>Rp. {{ $item->transaction_total }}</td>
       <td>{{ $item->transaction_status }}</td>
+      <td>
+        @foreach ($item->transactionItem as $i)
+          {{ $i->product->product_name .' ' .$i->item_qty .',' }} 
+        @endforeach
+      </td>
       <td>{{ $item->created_at }}</td>
   
     </tr>
