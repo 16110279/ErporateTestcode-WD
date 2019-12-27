@@ -178,6 +178,7 @@ class KasirController extends Controller
 
     public function showTransaction($id)
     {
+
         //
         // $user_id = Auth::user()->id;
         // $count = Cart::where('user_id', $user_id)->sum('cart_qty');
@@ -190,6 +191,10 @@ class KasirController extends Controller
         $all_product = Product::with('category', 'picture')->where('status', 'Ready')->get();
         $menu = 'Transaction';
         $idt = $id;
+
+        $transaction = Transaction::findOrFail($id);
+        $transaction->transaction_total = $sum;
+        $transaction->save();
 
         return view('kasir/transaction-edit', compact('transaction', 'all_product', 'transaction_item',   'menu', 'sum', 'idt'));
     }
@@ -271,9 +276,9 @@ class KasirController extends Controller
         $transaction->save();
 
         // return response()->json([
-        //     'data' => $cart
+        //     'data' => $transaction->transaction_id
         // ]);
-        return redirect('/pelayan/transaction/' . $request->id)->with('status', 'QTY updated !');
+        return redirect('/kasir/transaction/' . $transaction->transaction_id)->with('status', 'QTY updated !');
     }
 
     public function destroyTransaction($id)
@@ -283,6 +288,51 @@ class KasirController extends Controller
         $transaction->delete();
 
         return redirect('/kasir/transaction')->with('status', 'Product successfully deleted !');
+    }
+    public function updt(Request $request, $id)
+    {
+        $trans_item = TransactionItem::with('Transaction')->where('transaction_id', $request->idt)->where('product_id', $request->idp)->get();
+        $pid = $request->idp;
+        $qty = '';
+        $pro = Product::where('id', $request->idp)->get();
+
+
+        if (empty($trans_item[0])) {
+            // Array is not empty.
+            echo 'd';
+            $new_trans = new TransactionItem();
+            $new_trans->transaction_id = $request->idt;
+            $new_trans->product_id = $request->idp;
+            $new_trans->item_qty = $new_trans->item_qty + 1;
+            $new_trans->item_subtotal = $pro[0]->product_price * ($new_trans->item_qty);
+            $new_trans->save();
+        } else {
+
+            $id = $trans_item[0]->id;
+            $transaksi_update = TransactionItem::findOrFail($id);
+            $transaksi_update->item_qty = $transaksi_update->item_qty + 1;
+            $transaksi_update->item_subtotal = $pro[0]->product_price * ($transaksi_update->item_qty);
+            $transaksi_update->save();
+        }
+        // return response()->json([
+        //     'data' => $trans_item
+        // ]);
+
+        return redirect('/kasir/transaction/' . $request->idt)->with('status', 'Order successfully updated !');
+    }
+
+    public function destroyTransactionItem($id)
+    {
+        //
+        $idt = TransactionItem::where('id', $id)->get();
+        $item = TransactionItem::where('id', $id)->delete();
+
+        // $trs = Transa
+        // return view('pelayan/transaction-manage', compact('transaction', 'menu', 'count'));
+        // return response()->json([
+        //     'data' => $idt[0]->transaction_id,
+        // ]);
+        return redirect('/kasir/transaction/' . $idt[0]->transaction_id)->with('status', 'Order successfully updated !');
     }
 
     public function manageProduct()

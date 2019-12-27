@@ -64,6 +64,10 @@
     Route::post('/kasir/add-product', 'KasirController@store');
     Route::get('/kasir/transaction/{transaction}/bayar', 'KasirController@bayar')->name('kasir')->middleware('kasir');
     Route::get('/kasir/transaction/{id}', 'KasirController@showTransaction')->name('kasir')->middleware('kasir');
+    Route::post('/kasir/transaction/{id}/update', 'KasirController@updt')->name('kasir')->middleware('kasir');
+    Route::put('kasir/transaction/{id}', 'KasirController@updateQtyTransaction')->name('kasir')->middleware('kasir');
+    Route::delete('/kasir/transaction/item/{id}', 'KasirController@destroyTransactionItem')->name('kasir')->middleware('kasir');
+
     Route::get('/kasir/', 'KasirController@index')->name('kasir')->middleware('kasir');
 
 

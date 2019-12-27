@@ -17,6 +17,7 @@
                                    <form action="{{ url('kasir/transaction/'.$item->id) }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                        @csrf
                                   <input type="hidden" name="_method" id="_method" value="PUT">
+                                  <input type="hidden" name="idt" id="idt" value="{{ $idt }}">
                                   <input type="hidden" name="id" id="id" value="{{ Auth::user()->id }}">
                                     <div class="stat-widget-one">
                                         <div class="stat-icon dib"><img src="{{ url('storage/img'.'/'.$item->Picture->picture_name) }}" width="96px" height="65px">
@@ -28,7 +29,9 @@
                                     
                                     <div class="float-right">
                                        <button type="submit" class="btn btn-success"><li class="fa fa-pencil"></li></button>
-                                         <form action="basic/{{$item ->id}}" method="post">
+                                                                          </form>
+
+                                         <form action="{{ url('kasir/transaction/item/'.$item->id) }}" method="post">
                                 @method('delete')
                                 @csrf
                                     <button type="submit" class="btn btn-danger"><li class="fa fa-trash"></li></button>
@@ -44,7 +47,6 @@
 
                                         </div>                                    
                                 </div>
-                                   </form>
                         
 
                                 
@@ -77,7 +79,7 @@
                                             
 
                                             <div class="text-center">
-                                                    {{-- <form action="{{ url('pelayan/cart/checkout') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                                    {{-- <form action="{{ url('kasir/cart/checkout') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                             @csrf
                                           
                                             <button class="btn btn-success">
@@ -132,7 +134,7 @@
                  
                              
                         <td>
-                            <form action="{{ url('pelayan/transaction/'.$item->id.'/update') }}" method="POST">
+                            <form action="{{ url('kasir/transaction/'.$item->id.'/update') }}" method="POST">
                                 @csrf
                             <input type="number" name="idt" id="idt" value="{{ $idt }}" hidden>
                             <input type="number" name="idp" id="idp" value="{{ $item->id }}" hidden>
