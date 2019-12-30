@@ -12,7 +12,8 @@ Laravel Framework 6.8.0 <br>
 Bootstrap 4 <br>
 
 # Admin Panel Template
-Ela Admin
+Ela Admin <br>
+https://colorlib.com/polygon/elaadmin/index.html
 
 # Catatan
 Clone project ini <br>
