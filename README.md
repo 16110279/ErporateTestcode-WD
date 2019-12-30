@@ -15,8 +15,13 @@ Bootstrap 4 <br>
 Ela Admin
 
 # Catatan
-php artisan db:seed <br>
-php artisan storage link
+composer install<br>
+php artisan key:generate
+php artisan migrate
+php artisan db:seed 
+php artisan passport:install
+php artisan serve
+
 
 ## Beberapa Screenshot : 
 
