@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 Route::group([
@@ -24,8 +24,6 @@ Route::group([
 
     Route::post('/login', 'API\UserController@login');
 
-    Route::get('/user', 'API\UserController@detail');
-    Route::post('/logout', 'API\UserController@logout');
 
 
     Route::group([
@@ -64,6 +62,9 @@ Route::group([
         Route::get('/transaction/{id}', 'API\TransactionController@show');
         Route::delete('/transaction/{id}', 'API\TransactionController@destroy');
         Route::put('/transaction/{id}', 'API\TransactionController@update');
+
+        Route::post('/logout', 'API\UserController@logout');
+        Route::get('/user', 'API\UserController@detail');
     });
 });
 
