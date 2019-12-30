@@ -20,7 +20,7 @@
                                   <input type="hidden" name="idt" id="idt" value="{{ $idt }}">
                                   <input type="hidden" name="id" id="id" value="{{ Auth::user()->id }}">
                                     <div class="stat-widget-one">
-                                        <div class="stat-icon dib"><img src="{{ url('storage/img'.'/'.$item->Picture->picture_name) }}" width="96px" height="65px">
+                                        <div class="stat-icon dib"><img src="{{ url('img'.'/'.$item->product->picture[0]->picture_name) }}" width="96px" height="65px">
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text">{{ $item->Product->product_name }}</div>
@@ -142,7 +142,7 @@
                     <td>{{ $item->category->category_name }}</td>
                     <td>
                         @foreach ($item->picture as $img)
-                          <img src="{{ url('storage/img'.'/'.$img->picture_name) }}"  style="width:50px;height:50px;border:0;">
+                          <img src="{{ url('img'.'/'.$img->picture_name) }}"  style="width:50px;height:50px;border:0;">
 
                         @endforeach
                     </td>

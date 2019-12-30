@@ -18,15 +18,5 @@ class Picture extends Model
         return $this->hasMany('App\Product', 'product_id');
     }
 
-    public function cart()
-    {
-        return $this->hasMany('App\Cart', 'product_id');
-    }
-
-    public function transactionItem()
-    {
-        return $this->hasMany('App\Cart', 'product_id');
-    }
-
     //
 }

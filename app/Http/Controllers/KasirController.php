@@ -103,7 +103,7 @@ class KasirController extends Controller
 
         $simpan->picture_name = url('img' . '/' . $simpan->picture_name);
     }
-    private function imageUpload($request, $product_id, $location = 'public/img')
+    private function imageUpload($request, $product_id, $location = 'img')
     {
         $product = Product::findOrFail($product_id);
         $uploadedFile = $request->file('product_gambar');
@@ -202,7 +202,7 @@ class KasirController extends Controller
         // $cart_sum = Cart::with(' Product ')->sum(' cart_qty * cart_qty ');
 
         $transaction = Transaction::with('TransactionItem')->where('id', $id)->get();
-        $transaction_item = TransactionItem::with('product', 'picture', 'transaction')->where('transaction_id', $id)->get();
+        $transaction_item = TransactionItem::with('product.picture', 'transaction')->where('transaction_id', $id)->get();
         $all_product = Product::with('category', 'picture')->where('status', 'Ready')->get();
         $menu = 'Transaction';
         $idt = $id;
@@ -250,8 +250,17 @@ class KasirController extends Controller
         foreach ($picture as $key) {
             $foto_produk = $key['picture_name'];
             // Storage::delete(');
-            Storage::delete("{{ url('storage/img'.'/'.$foto_produk) }}");
-            Storage::delete('storage/img/1.jpg');
+            // Storage::delete("{{ url('img'.'/'.$foto_produk) }}");
+            // Storage::delete('storage/img/1.jpg');
+
+            Storage::delete('img' . '/' . $foto_produk);
+
+            // return response()->json([
+            //     'status' => true,
+            //     'message' => 'Data deleted',
+            //     // 'result' => $result,
+            //     'data' => $foto_produk
+            // ]);
         }
 
         $result = Picture::where('product_id', $id)->count();

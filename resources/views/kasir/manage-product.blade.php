@@ -35,7 +35,7 @@
                                         <td>{{ $item->status }}</td>
                                         <td>
                     @foreach ($item->picture as $img)
-                        <img src="{{ url('storage/img'.'/'.$img->picture_name) }}"  style="width:50px;height:50px;border:0;">
+                        <img src="{{ url('/img'.'/'.$img->picture_name) }}"  style="width:50px;height:50px;border:0;">
                     @endforeach
                         </td>
                     {{-- <td>{{ $item->picture[0]->picture_name }}</td> --}}

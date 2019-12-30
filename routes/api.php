@@ -17,6 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::group([
     'prefix' => 'v0'
 ], function () {
@@ -45,7 +46,7 @@ Route::group([
 
         Route::post('product/{id}/picture', 'API\PictureController@storeImage');
         // Route::post('product/{id}/picture', 'API\PictureController@store');
-        Route::get('picture', 'API\PictureController@index');
+        Route::get('/picture', 'API\PictureController@index');
         Route::get('picture/{id}', 'API\PictureController@byproduct');
         Route::delete('picture/{id}', 'API\PictureController@destroy');
         Route::post('picture', 'API\PictureController@store');
@@ -64,4 +65,17 @@ Route::group([
         Route::delete('/transaction/{id}', 'API\TransactionController@destroy');
         Route::put('/transaction/{id}', 'API\TransactionController@update');
     });
+});
+
+// });
+
+Route::group([
+    'prefix' => 'v1'
+], function () {
+    Route::post('product/{id}/picture', 'API\PictureController@storeImage');
+    Route::get('picture/{id}', 'API\PictureController@byproduct');
+    Route::delete('picture/{id}', 'API\PictureController@destroy');
+
+    Route::post('picture', 'API\PictureController@store');
+    Route::get('/product/active', 'API\ProductController@active');
 });

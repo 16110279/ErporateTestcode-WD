@@ -25,18 +25,18 @@
 
      <div id="content" class="row"></div>
  <!-- Modal -->
-            <form action="{{ url('api/v0/product/'.$product->id .'/picture') }}" method="POST" enctype="multipart/form-data" class="form-horizontal" id="pariwisata_form">
-            {{-- <form action="{{ url('kasir/add-product') }}" method="POST" enctype="multipart/form-data" class="form-horizontal"> --}}
+            <form action="{{ url('api/v1/picture') }}" method="POST" enctype="multipart/form-data" class="form-horizontal" id="product_form">
+{{-- <form action="{{ url('kasir/add-product') }}" method="POST" enctype="multipart/form-data" class="form-horizontal"> --}}
 
                                            @csrf
 
-   <div class="modal fade" id="newMenuModal" tabindex="-1" role="dialog" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+   <div class="modal fade" id="addImgModal" tabindex="-1" role="dialog" aria-labelledby="addImgModalLabel" aria-hidden="true">
        <div class="modal-dialog" role="document">
            <div class="modal-content">
-            {{-- <form action="{{ url('api/v0/product/'.$product->id .'/picture') }}" enctype="multipart/form-data" method="post" id="pariwisata_form"> --}}
+            {{-- <form action="{{ url('api/v0/product/'.$product->id .'/picture') }}" enctype="multipart/form-data" method="post" id="product_form"> --}}
         
                 <div class="modal-header">
-                        <h5 class="modal-title" id="formModalLabel">Add New Menu</h5>
+                        <h5 class="modal-title" id="formModalLabel">Tambahkan Gambar Baru</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -46,13 +46,12 @@
                         <input type="hidden" name="_method" id="_method" value="POST">
 
                         <div class="form-group" id="field-product_id">
-                            <label>Nama</label>
-                            <input type="text" class="form-control" id="product_id" name="product_id" placeholder="Nama Pariwisata" value="{{ $product->id }}">
+                        
+                            <input type="text" hidden class="form-control" id="product_id" name="product_id" placeholder="Product Id" value="{{ $product->id }}">
                         </div>
 
                         <div class="form-group" id="field-picture_name">
-                            <label>Gambar</label>
-                            <input type="file" id="picture_name" name="picture_name" class="form-control">
+                             <input type="file" id="picture_name" name="picture_name" class="form-control">
                         </div>
                     </div>
 
@@ -77,7 +76,7 @@
                     
          
 <div class="float-right">
-                 <button type="button" class="btn btn-primary mb-3 tombolTambahData" data-toggle="modal" data-target="#newMenuModal"> Add New</button>
+                 <button type="button" class="btn btn-primary mb-3 tombolTambahData" data-toggle="modal" data-target="#addImgModal"> Add New</button>
 </div>
         
                                    

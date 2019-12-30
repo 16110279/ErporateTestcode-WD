@@ -276,7 +276,7 @@ class PelayanController extends Controller
         //
         $user_id = Auth::user()->id;
         $count = Cart::where('user_id', $user_id)->sum('cart_qty');
-        $cart = Cart::with('Product', 'Picture')->where('user_id', $user_id)->get();
+        $cart = Cart::with('Product.Picture')->where('user_id', $user_id)->get();
         $sum = Cart::where('user_id', $user_id)->sum('subtotal');
         // $cart_sum = Cart::with(' Product ')->sum(' cart_qty * cart_qty ');
 
@@ -292,10 +292,10 @@ class PelayanController extends Controller
 
     public function showTransaction($id)
     {
-        //
+
         $user_id = Auth::user()->id;
         $count = Cart::where('user_id', $user_id)->sum('cart_qty');
-        $cart = Cart::with('Product', 'Picture')->where('user_id', $user_id)->get();
+        $cart = Cart::with('Product.picture')->where('user_id', $user_id)->get();
         $sum = TransactionItem::where('transaction_id', $id)->sum('item_subtotal');
 
         $transaction = Transaction::findOrFail($id);
@@ -305,7 +305,7 @@ class PelayanController extends Controller
         // $cart_sum = Cart::with(' Product ')->sum(' cart_qty * cart_qty ');
 
         $transaction = Transaction::with('TransactionItem')->where('id', $id)->get();
-        $transaction_item = TransactionItem::with('product', 'picture', 'transaction')->where('transaction_id', $id)->get();
+        $transaction_item = TransactionItem::with('product.picture', 'transaction')->where('transaction_id', $id)->get();
         $all_product = Product::with('category', 'picture')->where('status', 'Ready')->get();
         $menu = 'Transaction';
         $idt = $id;

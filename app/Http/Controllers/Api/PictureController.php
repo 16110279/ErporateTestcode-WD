@@ -124,15 +124,17 @@ class PictureController extends Controller
         //
         $picture = picture::findOrFail($id);
         $img = picture::where('id', $id)->first();
-        Storage::disk('public')->delete('img' . '/' . $img->picture_name);
-        $picture->delete();
+        // Storage::disk('public')->delete('img' . '/' . $img->picture_name);
+        Storage::delete('img' . '/' . $img->picture_name);
 
+
+        $picture->delete();
 
 
         // $picture = Picture::where('id', $id)->get();
         return response()->json([
             'message' => 'Image deleted',
-            'data' => $picture
+            'data' => $img->picture_name
         ]);
     }
 
@@ -151,7 +153,7 @@ class PictureController extends Controller
         ]);
     }
 
-    private function imageUpload($request, $location = 'public/img')
+    private function imageUpload($request, $location = 'img')
     {
         $product = Product::findOrFail($request->product_id);
         $uploadedFile = $request->file('picture_name');

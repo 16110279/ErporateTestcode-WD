@@ -4,7 +4,7 @@
 {{-- @dump($sum) --}}
 
 
-{{-- @dump($cart) --}}
+@dump($cart)
            <!-- Orders -->
                 <div class="orders">
                     <div class="row">
@@ -19,7 +19,7 @@
                                   <input type="hidden" name="_method" id="_method" value="PUT">
                                   <input type="hidden" name="id" id="id" value="{{ Auth::user()->id }}">
                                     <div class="stat-widget-one">
-                                        <div class="stat-icon dib"><img src="{{ url('storage/img'.'/'.$item->Picture->picture_name) }}" width="96px" height="65px">
+                                        <div class="stat-icon dib"><img src="{{ url('img'.'/'.$item->product->picture[0]->picture_name) }}" width="96px" height="65px">
                                     </div>
                                     <div class="stat-content dib">
                                         <div class="stat-text">{{ $item->Product->product_name }}</div>

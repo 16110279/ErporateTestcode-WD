@@ -133,7 +133,7 @@
     <script>             
             function loadData(){
                 $.ajax({
-                    url: "{{ url('api/v0/product/active') }}",
+                    url: "{{ url('api/v1/product/active') }}",
                     method: "GET",
                     contentType: "application/json",
                     dataType: "json",
@@ -148,7 +148,7 @@
                             html_content += 
                             "<div class='col-12 col-md-4'>"
                                 +"<div class='card mb-2'>"
-                                    +"<img src='../storage/img/"+value.picture[0].picture_name+"' class='card-img-top'>"
+                                    +"<img src='/img/"+value.picture[0].picture_name+"' class='card-img-top'>"
                                     +"<div class='card-body'>"
                                         +"<h1 class='card-title'>"+value.product_name+"</h1>"
                                         +"<p> Rp. "+value.product_price+"</p>"

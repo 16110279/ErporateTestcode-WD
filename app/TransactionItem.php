@@ -29,9 +29,4 @@ class TransactionItem extends Model
     {
         return $this->belongsTo('App\Product', 'product_id');
     }
-
-    public function picture()
-    {
-        return $this->belongsTo('App\Picture', 'product_id');
-    }
 }

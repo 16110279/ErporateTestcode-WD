@@ -152,7 +152,7 @@
                 // var id = $id
                 // id = id
                 $.ajax({
-                    url: "/api/v0/picture/"+id,
+                    url: "/api/v1/picture/"+id,
 
                     method: "GET",
                     contentType: "application/json",
@@ -168,7 +168,7 @@
                             html_content += 
                     "<div class='col-md-4'>"
                         +"<div class='card'>"
-                            +"<img class='card-img-top' src='../../../storage/img/"+value.picture_name+"'  alt='Card image cap'>"
+                            +"<img class='card-img-top' src='/img/"+value.picture_name+"'  alt='Card image cap'>"
                             +"<div class='card-bod'>"
                                       +"<div class='row form-group'>"
                                         +"<div class='col-12 col-md-9'><input type='file' id='file-input' name='file-input' class='form-control-file'></div>"
@@ -187,6 +187,16 @@
                 });
             }
 
+
+            $(".addImgModal").on("hidden.bs.modal", function(){
+                console.log('d');
+                $("#product_id").val('');
+                $("#picture_name").val('');
+
+
+    // $(".modal-body").html("");
+});
+
                 function addAction(id){
                 if(confirm("Are you sure?")){
                     $.ajax({
@@ -203,7 +213,7 @@
                 }
             }
 
-             $("#pariwisata_form").submit(function(e){
+             $("#product_form").submit(function(e){
                  
                 e.preventDefault();
                 // console.log(api_url);
@@ -227,8 +237,8 @@ var id = $("#product_id").val();
                     processData: false,
                     success: function(result){
                         console.log(result);
-                        // $("#newMenuModal").modal('hide');
-                        //    $('#newMenuModal').modal('toggle');
+                        // $("#addImgModal").modal('hide');
+                        //    $('#addImgModal').modal('toggle');
 
                         // console.log(id);
                         loadData(id);
@@ -251,7 +261,7 @@ var id = $("#product_id").val();
                     console.log(id)
                     console.log(idt)
                     $.ajax({
-                        url: "/api/v0/picture/"+id,
+                        url: "/api/v1/picture/"+id,
                         method: "POST",
                         data: {'id': id, '_token': "{{ csrf_token() }}", '_method': 'delete'},
                         success: function(result){
