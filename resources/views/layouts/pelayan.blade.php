@@ -152,7 +152,7 @@
                                     +"<div class='card-body'>"
                                         +"<h1 class='card-title'>"+value.product_name+"</h1>"
                                         +"<p> Rp. "+value.product_price+"</p>"
-                                      +"<button type='button' class='badge badge-primary' onclick='addAction("+value.id+")' data-toggle='modal' data-target='#newMenuModal-' data-id="+value.id+"> Add </button>"
+                                      +"<button type='button' class='badge badge-primary' onclick='addAction("+value.id+")' data-toggle='modal' data-target='#newMenuModal-' data-id="+value.id+"> <li class='fa fa-shopping-cart'></li> Add to cart</button>"
                                       
                                     +"</div>"
                                 +"</div>"

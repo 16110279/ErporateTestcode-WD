@@ -4,7 +4,7 @@
 {{-- @dump($sum) --}}
 
 
-@dump($cart)
+{{-- @dump($cart) --}}
            <!-- Orders -->
                 <div class="orders">
                     <div class="row">
@@ -28,14 +28,27 @@
                                     
                                     <div class="float-right">
                                        <button type="submit" class="btn btn-success"><li class="fa fa-pencil"></li></button>
+                                                                         </form>
+
+                                       <form action="{{ url('pelayan/cart/item/'.$item->id) }}" method="post">
+                                @method('delete')
+                                @csrf
+                                    <button type="submit" class="btn btn-danger"><li class="fa fa-trash"></li></button>
                                     </div>
+                                                                       </form>
+
+                                    
+
 
                                     <div class="float-right">
                                             <div class="row form-group">
-                                            <div class="col-12 col-md-9"><input type="number" id="cart_qty" name="cart_qty" placeholder="Nama product" value="{{ $item->cart_qty }}" class="form-control"></div>
-                                    </div>                                    
+                                            <div class="col-12 col-md-9"><input type="number" id="cart_qty" name="cart_qty" class="form-control  @error('cart_qty') is-invalid @enderror" value="{{ $item->cart_qty }}"></div>
+                                                            @error('cart_qty')
+                        <div class='invalid-feedback'>{{ $message }}</div>
+                        @enderror
+
+                                        </div>                                    
                                 </div>
-                                   </form>
                         
 
                                 
@@ -67,14 +80,15 @@
                                             <div class="text-center">
                                                     <form action="{{ url('pelayan/cart/checkout') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                             @csrf
-                                            <div class="form-group" id="field-product_price">
-                                                                {{-- <label>No Meja</label> --}}
-                                                                <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" placeholder="No Meja" value="{{old('no_meja')}}">
-                                                                
+
+                                                                                                <div class="row form-group">
+                                        <div class="col col-md-3"><label for="no_meja" class=" form-control-label">Nomer Meja</label></div>
+                                        <div class="col-12 col-md-9"><input type="number" id="no_meja" name="no_meja" placeholder="No Meja" class="form-control  @error('no_meja') is-invalid @enderror"  value="{{old('no_meja')}}"></div>
                                                                 @error('no_meja')
                                                                 <div class='invalid-feedback'>{{ $message }}</div>
                                                                 @enderror
-                                                            </div>
+                                    </div>
+
                                                                     <button class="btn btn-primary">
                                                 Checkout
                                             </button>

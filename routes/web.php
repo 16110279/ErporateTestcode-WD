@@ -47,7 +47,9 @@
     Route::put('pelayan/transaction/{id}', 'PelayanController@updateQtyTransaction')->name('pelayan')->middleware('pelayan');
     Route::get('/pelayan/transaction', 'PelayanController@managetransaction')->name('pelayan')->middleware('pelayan');
     Route::get('/pelayan/transaction/{id}', 'PelayanController@showTransaction')->name('pelayan')->middleware('pelayan');
+    Route::delete('/pelayan/cart/item/{id}', 'PelayanController@destroyCartItem')->name('pelayan')->middleware('pelayan');
     Route::delete('/pelayan/transaction/item/{id}', 'PelayanController@destroyTransactionItem')->name('pelayan')->middleware('pelayan');
+    Route::delete('/pelayan/transaction/{transaction}', 'PelayanController@destroyTransaction')->name('pelayan')->middleware('pelayan');
 
     Route::get('/pelayan/', 'PelayanController@index')->name('pelayan')->middleware('pelayan');
 
@@ -55,6 +57,8 @@
 
     Route::get('/kasir/manage-product', 'KasirController@manageProduct')->name('kasir')->middleware('kasir');
     Route::get('/kasir/add-product', 'KasirController@addproduct')->name('kasir')->middleware('kasir');
+    Route::put('/kasir/transaction/updtmeja', 'KasirController@updtNoMeja')->name('kasir')->middleware('kasir');
+
     Route::post('/kasir/add-product', 'KasirController@store')->name('kasir')->middleware('kasir');
     Route::get('/kasir/manage-product/{product}/edit', 'KasirController@edit')->name('kasir')->middleware('kasir');
     Route::patch('/kasir/manage-product/{product}', 'KasirController@update')->name('kasir')->middleware('kasir');
@@ -68,7 +72,6 @@
     Route::post('/kasir/transaction/{id}/update', 'KasirController@updt')->name('kasir')->middleware('kasir');
     Route::put('kasir/transaction/{id}', 'KasirController@updateQtyTransaction')->name('kasir')->middleware('kasir');
     Route::delete('/kasir/transaction/item/{id}', 'KasirController@destroyTransactionItem')->name('kasir')->middleware('kasir');
-    Route::delete('/kasir/addpicture/{id}', 'KasirController@addPicture')->name('kasir')->middleware('kasir');
 
     Route::get('/kasir/', 'KasirController@index')->name('kasir')->middleware('kasir');
 

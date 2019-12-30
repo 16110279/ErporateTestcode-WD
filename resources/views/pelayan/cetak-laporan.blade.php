@@ -1,19 +1,13 @@
 {{-- @dump($tr) --}}
-                                   <h1>LAPORAN</h1>
-                                     Nama Karyawan :   {{ Auth::user()->name }}
-                                     <br>
-                    Total :  Rp.  {{ $total }}
-                        <br>
+<title>Cetak Laporan</title>                                  
+                                                             
+                     <div class="col">  <h1>LAPORAN</h1> </div>                 
+                     <div class="col"> Nama Karyawan :   {{ Auth::user()->name }}</div>                 
+                     <div class="col"> Tanggal dicetak :    {{ $date }}</div>                 
+                     <div class="col"> Total uang masuk semua transaksi : Rp. {{ $total }}</div>
+                     <br>                 
 
-                        {{ $date }}
-
-
-
-                     
-
-                      
-
- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+                     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <table class="table table-striped">
   <thead>

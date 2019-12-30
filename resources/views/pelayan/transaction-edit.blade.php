@@ -4,7 +4,7 @@
 {{-- @dump($jr) --}}
 {{-- {{ $jr }} --}}
 
-{{-- @dump($transaction_item) --}}
+{{-- @dump($transaction) --}}
            <!-- Orders -->
                 <div class="orders">
                     <div class="row">
@@ -81,11 +81,14 @@
                                             @csrf
                                         <input type="hidden" name="_method" id="_method" value="PUT">
                                   <input type="hidden" name="idt_a" id="idt_a" value="{{ $idt }}">
-                                       <div class="row form-group">
-                                           No Meja
-                                           {{-- @dump($transaction[0] ?? '') --}}
-                                        <div class="col-12 col-md-9"><input type="number" id="no_meja" name="no_meja" placeholder="No Meja" class="form-control" value="{{ $transaction[0]->no_meja }}"></div>
+                                                                                                                                    <div class="row form-group">
+                                        <div class="col col-md-3"><label for="no_meja" class=" form-control-label">Nomer Meja</label></div>
+                                        <div class="col-12 col-md-9"><input type="number" id="no_meja" name="no_meja" placeholder="No Meja" class="form-control  @error('no_meja') is-invalid @enderror"  value="{{ $transaction->no_meja }}"></div>
+                                                                @error('no_meja')
+                                                                <div class='invalid-feedback'>{{ $message }}</div>
+                                                                @enderror
                                     </div>
+
                                             <button class="btn btn-primary">
                                                 Update
                                             </button>

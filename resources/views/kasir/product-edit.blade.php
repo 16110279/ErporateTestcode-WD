@@ -43,7 +43,7 @@
                         {{-- <img src="{{ url('storage/img'.'/'.$product->picture[0]->picture_name) }}" class="card-img-top"> --}}
                         @foreach ($product->picture as $img)
                         {{-- {{ $img->id }} --}}
-                        <img src="{{ url('storage/img'.'/'.$img->picture_name) }}" class="card-img-top"  style="width:100px;height:100px;border:0;">&nbsp
+                        <img src="{{ url('img'.'/'.$img->picture_name) }}" class="card-img-top"  style="width:100px;height:100px;border:0;">&nbsp
                             
                         @endforeach
                         <a href="{{ url('kasir/manage-product/'.$product->id.'/edit-img') }}" class="btn btn-success"><i class="fa fa-pencil"></i> </a>

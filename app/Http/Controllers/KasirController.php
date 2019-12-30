@@ -305,13 +305,26 @@ class KasirController extends Controller
         return redirect('/kasir/transaction/' . $transaction->transaction_id)->with('status', 'QTY updated !');
     }
 
+    public function updtNoMeja(Request $request)
+    {
+        $request->validate([
+            'no_meja' => ['required', 'numeric', 'min:1'],
+        ]);
+
+        $tr = Transaction::findOrFail($request->idt_a);
+        $tr->no_meja = $request->no_meja;
+        $tr->save();
+        return redirect('/kasir/transaction/' . $request->idt_a)->with('status', 'Order successfully updated !');
+    }
+
+
     public function destroyTransaction($id)
     {
         //
         $transaction = Transaction::findOrFail($id);
         $transaction->delete();
 
-        return redirect('/kasir/transaction')->with('status', 'Product successfully deleted !');
+        return redirect('/kasir/transaction')->with('status', 'Transaction successfully deleted !');
     }
     public function updt(Request $request, $id)
     {

@@ -169,13 +169,8 @@
                     "<div class='col-md-4'>"
                         +"<div class='card'>"
                             +"<img class='card-img-top' src='/img/"+value.picture_name+"'  alt='Card image cap'>"
-                            +"<div class='card-bod'>"
-                                      +"<div class='row form-group'>"
-                                        +"<div class='col-12 col-md-9'><input type='file' id='file-input' name='file-input' class='form-control-file'></div>"
-                                        +"<button class='btn btn-success'><li class='fa fa-upload'></li></button>"
-                                        +"<button type='button' class='btn btn-danger' onclick='deleteAction(\"" + value.id + "\",\"" + id + "\")'>Delete</button>"
-
-                                    +"</div>"
+                            +"<div class='card-body'>"
+                                        +"<button type='button' class='btn btn-danger' onclick='deleteAction(\"" + value.id + "\",\"" + id + "\")'><li class='fa fa-trash'></li></button>"
                             +"</div>"
                         +"</div>"
                     +"</div>";     
@@ -197,21 +192,6 @@
     // $(".modal-body").html("");
 });
 
-                function addAction(id){
-                if(confirm("Are you sure?")){
-                    $.ajax({
-                        url: "/kasir/addpicture/"+id,
-                        method: "POST",
-                        data: {'id': id, '_token': "{{ csrf_token() }}"},
-                        success: function(result){
-                            alert(result.message);
-                            // loadData();
-                            window.location.href = "/pelayan";
-
-                        }
-                    });
-                }
-            }
 
              $("#product_form").submit(function(e){
                  

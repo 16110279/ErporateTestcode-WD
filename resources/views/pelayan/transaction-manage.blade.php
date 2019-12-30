@@ -38,6 +38,13 @@
                     <td>{{ $item->user->name }}</td>
                  
                         <td><a href="{{ url("pelayan/transaction/$item->id/") }}" class="btn btn-success"><li class="fa fa-pencil"></li></a>
+                        
+                                                    <form action="{{ url("pelayan/transaction/$item->id") }}" method="post">
+                                @method('delete')
+                                @csrf
+                                    <button type="submit" class="btn btn-danger" name="delete" id="delete"><i class="fa fa-trash-o"></i> </a></button>
+                            </form>
+                        
                         </td>
                 </tr>
             @endforeach

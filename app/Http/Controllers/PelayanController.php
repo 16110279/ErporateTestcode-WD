@@ -114,6 +114,11 @@ class PelayanController extends Controller
 
     public function updateQty(Request $request, $id)
     {
+
+        $request->validate([
+            'cart_qty' => ['required', 'numeric', 'min:1']
+        ]);
+
         $cart = Cart::findOrFail($id);
         $cart->cart_qty = $request->cart_qty;
 
@@ -246,20 +251,13 @@ class PelayanController extends Controller
     public function cetaklaporan()
     {
         $uid =  Auth::user()->id;
-        $sum = TransactionItem::where('transaction_id')->sum('item_subtotal');
+
         $total = Transaction::where('user_id', $uid)->sum('transaction_total');
 
         $count = Cart::all()->sum('item_subtotal');
-        // $laporan = Transaction::with('transactionItem')->get();
-
-        $tr = Transaction::with('TransactionItem.product')->where('user_id', $uid)->get();
-
-        $data = TransactionItem::with('Transaction', 'Product')->get();
 
 
-
-        $laporan = TransactionItem::with('transaction', 'product', 'picture')->get();
-        // $laporan = TransactionItem::with('transaction', 'product', 'picture')->get();
+        $tr = Transaction::with('TransactionItem')->where('user_id', $uid)->get();
 
 
         $date = Carbon::now()->translatedFormat('d F Y');
@@ -268,7 +266,7 @@ class PelayanController extends Controller
             $lp[] = TransactionItem::with('product')->where('transaction_id', $t->id)->get();
         }
         $menu = 'Laporan';
-        return view('pelayan/cetak-laporan', compact('menu', 'count', 'laporan', 'sum', 'tr', 'lp', 'total', 'date'));
+        return view('pelayan/cetak-laporan', compact('menu', 'count', 'tr', 'lp', 'total', 'date'));
     }
 
     public function cart()
@@ -303,14 +301,14 @@ class PelayanController extends Controller
         $transaction->save();
 
         // $cart_sum = Cart::with(' Product ')->sum(' cart_qty * cart_qty ');
-
-        $transaction = Transaction::with('TransactionItem')->where('id', $id)->get();
+        $no_meja = Transaction::where('id', $id)->first();
+        $transaction = Transaction::with('TransactionItem')->where('id', $id)->first();
         $transaction_item = TransactionItem::with('product.picture', 'transaction')->where('transaction_id', $id)->get();
         $all_product = Product::with('category', 'picture')->where('status', 'Ready')->get();
         $menu = 'Transaction';
         $idt = $id;
 
-        return view('pelayan/transaction-edit', compact('transaction', 'all_product', 'transaction_item',   'menu', 'count', 'cart', 'sum', 'idt'));
+        return view('pelayan/transaction-edit', compact('transaction', 'no_meja', 'all_product', 'transaction_item',   'menu', 'count', 'cart', 'sum', 'idt'));
     }
 
     /**
@@ -370,6 +368,11 @@ class PelayanController extends Controller
 
     public function updtNoMeja(Request $request)
     {
+        $request->validate([
+            'no_meja' => ['required', 'numeric', 'min:1'],
+        ]);
+
+
         // $idt =
         // $transaction = Transaction::where('id', $request->idt_a)->get();
         $tr = Transaction::findOrFail($request->idt_a);
@@ -405,18 +408,30 @@ class PelayanController extends Controller
     {
         //
     }
+
+    public function destroyTransaction($id)
+    {
+        //
+        $transaction = Transaction::findOrFail($id);
+        $transaction->delete();
+
+        return redirect('/pelayan/transaction')->with('status', 'Transaction successfully deleted !');
+    }
+
+
     public function destroyTransactionItem($id)
     {
         //
         $idt = TransactionItem::where('id', $id)->get();
         $item = TransactionItem::where('id', $id)->delete();
-
-        // $trs = Transa
-        // return view('pelayan/transaction-manage', compact('transaction', 'menu', 'count'));
-        // return response()->json([
-        //     'data' => $idt[0]->transaction_id,
-        // ]);
         return redirect('/pelayan/transaction/' . $idt[0]->transaction_id)->with('status', 'Order successfully updated !');
+    }
+    public function destroyCartItem($id)
+    {
+        //
+        // $idc = Cart::where('id', $id)->get();
+        $item = Cart::where('id', $id)->delete();
+        return redirect('/pelayan/cart')->with('status', 'Cart successfully updated !');
     }
 
     public function managetransaction()
