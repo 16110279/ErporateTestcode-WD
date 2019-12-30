@@ -1,8 +1,8 @@
 @extends('layouts.pelayan')
 
 @section('content')
-{{-- @dump($arr) --}}
-
+{{-- @dump($jr) --}}
+{{-- {{ $jr }} --}}
 
 {{-- @dump($transaction_item) --}}
            <!-- Orders -->
@@ -74,6 +74,23 @@
                                                     <hr />
                                                 Rp. {{ $sum }}
                                             </div>
+
+
+                                            <br>
+                                                <form action="{{ url('pelayan/transaction/updtmeja') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                                            @csrf
+                                        <input type="hidden" name="_method" id="_method" value="PUT">
+                                  <input type="hidden" name="idt_a" id="idt_a" value="{{ $idt }}">
+                                       <div class="row form-group">
+                                           No Meja
+                                           {{-- @dump($transaction[0] ?? '') --}}
+                                        <div class="col-12 col-md-9"><input type="number" id="no_meja" name="no_meja" placeholder="No Meja" class="form-control" value="{{ $transaction[0]->no_meja }}"></div>
+                                    </div>
+                                            <button class="btn btn-primary">
+                                                Update
+                                            </button>
+                                                    </form>
+
 
 
                                             

@@ -14,7 +14,6 @@ class PenyesuaianTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->default('default.jpg');
             $table->enum('status', ['Aktif', 'Tidak Aktif']);
             $table->integer('role')->default('3');
         });

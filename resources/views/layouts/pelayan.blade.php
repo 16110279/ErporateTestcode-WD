@@ -152,7 +152,7 @@
                                     +"<div class='card-body'>"
                                         +"<h1 class='card-title'>"+value.product_name+"</h1>"
                                         +"<p> Rp. "+value.product_price+"</p>"
-                                      +"<button type='button' class='badge badge-primary' onclick='deleteAction("+value.id+")' data-toggle='modal' data-target='#newMenuModal-' data-id="+value.id+"> Add </button>"
+                                      +"<button type='button' class='badge badge-primary' onclick='addAction("+value.id+")' data-toggle='modal' data-target='#newMenuModal-' data-id="+value.id+"> Add </button>"
                                       
                                     +"</div>"
                                 +"</div>"
@@ -165,41 +165,8 @@
                 });
             }
 
-            function loadData2(){
-                $.ajax({
-                    url: "{{ url('api/v0/product/active') }}",
-                    method: "GET",
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function(result){
-                        // console.log(result);
-
-                   let data = result.data;
-                        let html_content = "";
-                        $.each(data, function(index, value){
-                            // console.log("Result : "+value);
-                             console.log("Result : ", value)
-                            html_content += 
-                            "<div class='col-12 col-md-2'>"
-                                +"<div class='card mb-2'>"
-                                    +"<img src='../../storage/img/"+value.picture[0].picture_name+"' class='card-img-top'>"
-                                    +"<div class='card-body'>"
-                                        +"<h4 class='card-title'>"+value.product_name+"</h4>"
-                                        +"<p> Rp. "+value.product_price+"</p>"
-                                      +"<button type='button' class='badge badge-primary' onclick='addToTransCart("+value.id+")' data-toggle='modal' data-target='#newMenuModal-' data-id="+value.id+"> Add </button>"
-                                      
-                                    +"</div>"
-                                +"</div>"
-                            +"</div>";
-                        });
-
-                        $("#content").html(html_content);
-
-                        }
-                });
-            }
-
-                function deleteAction(id){
+           
+                function addAction(id){
                 if(confirm("Are you sure?")){
                     $.ajax({
                         url: "/pelayan/addtocart/"+id,

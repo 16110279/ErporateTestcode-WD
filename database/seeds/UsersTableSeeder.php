@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'jaka@erporate.com',
             'password' =>  \Hash::make("erporate"),
             'role' => 3,
-            'avatar' => 'default.jpg',
             'status' => 'Aktif'
         ]);
 
@@ -26,7 +25,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'santoso@erporate.com',
             'password' =>  \Hash::make("erporate"),
             'role' => 2,
-            'avatar' => 'default.jpg',
             'status' => 'Aktif'
         ]);
 
@@ -35,7 +33,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'budi@erporate.com',
             'password' =>  \Hash::make("erporate"),
             'role' => 3,
-            'avatar' => 'default.jpg',
             'status' => 'Aktif'
         ]);
     }

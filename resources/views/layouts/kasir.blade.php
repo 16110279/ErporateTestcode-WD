@@ -147,7 +147,124 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/datatable/datatables.min.css')}}">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="{{ asset('assets/datatable/jquery.dataTables.min.js')}}"></script>
+ <script>             
+            function loadData(id){
+                // var id = $id
+                // id = id
+                $.ajax({
+                    url: "/api/v0/picture/"+id,
 
+                    method: "GET",
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function(result){
+                        // console.log(result);
+
+                   let data = result.data;
+                        let html_content = "";
+                        $.each(data, function(index, value){
+                            // console.log("Result : "+value);
+                             console.log("Result : ", value)
+                            html_content += 
+                    "<div class='col-md-4'>"
+                        +"<div class='card'>"
+                            +"<img class='card-img-top' src='../../../storage/img/"+value.picture_name+"'  alt='Card image cap'>"
+                            +"<div class='card-bod'>"
+                                      +"<div class='row form-group'>"
+                                        +"<div class='col-12 col-md-9'><input type='file' id='file-input' name='file-input' class='form-control-file'></div>"
+                                        +"<button class='btn btn-success'><li class='fa fa-upload'></li></button>"
+                                        +"<button type='button' class='btn btn-danger' onclick='deleteAction(\"" + value.id + "\",\"" + id + "\")'>Delete</button>"
+
+                                    +"</div>"
+                            +"</div>"
+                        +"</div>"
+                    +"</div>";     
+                        });
+
+                        $("#content").html(html_content);
+
+                        }
+                });
+            }
+
+                function addAction(id){
+                if(confirm("Are you sure?")){
+                    $.ajax({
+                        url: "/kasir/addpicture/"+id,
+                        method: "POST",
+                        data: {'id': id, '_token': "{{ csrf_token() }}"},
+                        success: function(result){
+                            alert(result.message);
+                            // loadData();
+                            window.location.href = "/pelayan";
+
+                        }
+                    });
+                }
+            }
+
+             $("#pariwisata_form").submit(function(e){
+                 
+                e.preventDefault();
+                // console.log(api_url);
+                console.log("Form is being submited, url is : "+$(this).attr('action'));
+var id = $("#product_id").val();
+                // Remove All Error
+                $(".invalid-feedback").remove();
+                $(".form-control").removeClass("is-invalid");
+
+                var formData = new FormData(this);
+                // console.log(formData);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    method: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(result){
+                        console.log(result);
+                        // $("#newMenuModal").modal('hide');
+                        //    $('#newMenuModal').modal('toggle');
+
+                        // console.log(id);
+                        loadData(id);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(jqXHR);
+
+                        $.each(jqXHR.responseJSON.errors, function(key, result) {
+                            //Append Error Field
+                            $("#"+key).addClass('is-invalid');
+                            //Append Error Message
+                            $("#field-"+key).append("<div class='invalid-feedback'>"+result+"</div>");
+                        });
+                    }
+                });
+            });
+
+               function deleteAction(id,idt){
+                if(confirm("Are you sure?")){
+                    console.log(id)
+                    console.log(idt)
+                    $.ajax({
+                        url: "/api/v0/picture/"+id,
+                        method: "POST",
+                        data: {'id': id, '_token': "{{ csrf_token() }}", '_method': 'delete'},
+                        success: function(result){
+                            alert(result.message);
+                            loadData(idt);
+                        }
+                    });
+                }
+            }
+
+
+
+            </script>
 
 </body>
 </html>

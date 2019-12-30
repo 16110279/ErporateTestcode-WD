@@ -36,7 +36,7 @@ class UserController extends Controller
 
     public function login()
     {
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
             $token = $user->createToken('nApp')->accessToken;
 
@@ -46,8 +46,7 @@ class UserController extends Controller
                 'data' => $user,
                 'token' => $token
             ], 200);
-        }
-        else{
+        } else {
             return response()->json([
                 'status' => 'false',
                 'message' => 'Credentials not match'
@@ -66,7 +65,7 @@ class UserController extends Controller
             'data' => $user
         ]);
     }
-    
+
     public function detail(Request $request)
     {
         $user = $request->user();

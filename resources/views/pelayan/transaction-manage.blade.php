@@ -16,6 +16,8 @@
             <tr>
                 <th>#</th>
                 <th>Kode Transaksi</th>
+                <th>No Meja</th>
+                <th>Waktu Order</th>
                 <th>Status</th>
                 <th>Total</th>
                 <th>Pelayan</th>
@@ -29,6 +31,8 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->transaction_code }}</td>
+                    <td>{{ $item->no_meja }}</td>
+                    <td>{{ $item->created_at }}</td>
                     <td>{{ $item->transaction_status }}</td>
                     <td>Rp. {{ $item->transaction_total }}</td>
                     <td>{{ $item->user->name }}</td>

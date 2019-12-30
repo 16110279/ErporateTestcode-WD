@@ -41,6 +41,7 @@
     Route::get('/pelayan/cart', 'PelayanController@cart')->name('pelayan')->middleware('pelayan');
     Route::post('/pelayan/addtocart/{id}', 'PelayanController@addtocart')->name('pelayan')->middleware('pelayan');
     Route::post('/pelayan/transaction/{id}/update', 'PelayanController@updt')->name('pelayan')->middleware('pelayan');
+    Route::put('/pelayan/transaction/updtmeja', 'PelayanController@updtNoMeja')->name('pelayan')->middleware('pelayan');
     Route::post('pelayan/cart/checkout', 'PelayanController@checkout')->name('pelayan')->middleware('pelayan');
     Route::put('pelayan/cart/{id}', 'PelayanController@updateQty')->name('pelayan')->middleware('pelayan');
     Route::put('pelayan/transaction/{id}', 'PelayanController@updateQtyTransaction')->name('pelayan')->middleware('pelayan');
@@ -67,6 +68,7 @@
     Route::post('/kasir/transaction/{id}/update', 'KasirController@updt')->name('kasir')->middleware('kasir');
     Route::put('kasir/transaction/{id}', 'KasirController@updateQtyTransaction')->name('kasir')->middleware('kasir');
     Route::delete('/kasir/transaction/item/{id}', 'KasirController@destroyTransactionItem')->name('kasir')->middleware('kasir');
+    Route::delete('/kasir/addpicture/{id}', 'KasirController@addPicture')->name('kasir')->middleware('kasir');
 
     Route::get('/kasir/', 'KasirController@index')->name('kasir')->middleware('kasir');
 

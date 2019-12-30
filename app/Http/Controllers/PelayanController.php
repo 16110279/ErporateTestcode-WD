@@ -160,6 +160,13 @@ class PelayanController extends Controller
 
     public function checkout(Request $request)
     {
+
+        $request->validate(
+            [
+                'no_meja' => ['required', 'numeric'],
+            ]
+        );
+
         $user_id = Auth::user()->id;
         $cart = Cart::where('user_id', $user_id)->get();
         // $id = $id;
@@ -194,6 +201,7 @@ class PelayanController extends Controller
 
         $transaction = new Transaction;
         $transaction->user_id = $user_id;
+        $transaction->no_meja = $request->no_meja;
         $transaction->transaction_code = $transaction_code;
         $transaction->transaction_status = 'Aktif';
         $transaction->transaction_total = $total;
@@ -279,7 +287,7 @@ class PelayanController extends Controller
 
         $menu = 'Dashboard';
 
-        return view('pelayan/cart', compact('transaction', 'transaction_item',   'menu', 'count', 'cart', 'sum'));
+        return view('pelayan/cart', compact('transaction', 'transaction_item',  'user_id',  'menu', 'count', 'cart', 'sum'));
     }
 
     public function showTransaction($id)
@@ -351,13 +359,29 @@ class PelayanController extends Controller
 
         // $produk = Product::with('category', 'picture')->where('id', $product->id)->get();
         // $category_lain = Category::where('id', '!=', $product->category_id)->get();
-
+        $no_meja = Transaction::where('id', $transaction->id)->first();
         $transaction_item = TransactionItem::with('transaction', 'product', 'picture')->where('id', $transaction->id)->get();
         // $sum = Transaction::where('id', $transaction->id)->get();
         $menu = 'Transaction';
+        // $jr = 'fdaf';
         $count = Cart::where('user_id', $user_id)->sum('cart_qty');
-        return view('pelayan/transaction-edit', compact('transaction', 'count', 'menu', 'transaction_item'));
+        return view('pelayan/transaction-edit', compact('transaction', 'no_meja', 'count', 'menu', 'transaction_item'));
     }
+
+    public function updtNoMeja(Request $request)
+    {
+        // $idt =
+        // $transaction = Transaction::where('id', $request->idt_a)->get();
+        $tr = Transaction::findOrFail($request->idt_a);
+        $tr->no_meja = $request->no_meja;
+        $tr->save();
+        return redirect('/pelayan/transaction/' . $request->idt_a)->with('status', 'Order successfully updated !');
+
+        // return response([
+        //     'data' => $tr
+        // ]);
+    }
+
 
     /**
      * Update the specified resource in storage.

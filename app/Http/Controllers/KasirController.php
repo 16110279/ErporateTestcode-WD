@@ -28,6 +28,7 @@ class KasirController extends Controller
         return view('kasir/index', compact('menu'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -88,6 +89,20 @@ class KasirController extends Controller
 
     }
 
+    public function uploadImg(Request $request)
+
+    {
+        $product = Product::latest('created_at')->first();;
+        $product_id = $product->id;
+        $gambar = $this->imageUpload($request, $product_id);
+
+        $simpan = Picture::create([
+            'product_id' => $product->id,
+            'picture_name' => $gambar,
+        ]);
+
+        $simpan->picture_name = url('img' . '/' . $simpan->picture_name);
+    }
     private function imageUpload($request, $product_id, $location = 'public/img')
     {
         $product = Product::findOrFail($product_id);
@@ -146,7 +161,7 @@ class KasirController extends Controller
         $picture = Picture::where('product_id', $product->id)->get();
 
 
-        return view('kasir/product-edit-img', compact('menu', 'picture'));
+        return view('kasir/product-edit-img', compact('menu', 'product', 'picture'));
     }
 
     /**

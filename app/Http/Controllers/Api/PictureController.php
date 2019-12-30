@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Picture;
 use App\Product;
+use Storage;
 
 class PictureController extends Controller
 {
@@ -21,6 +22,15 @@ class PictureController extends Controller
         //
         $picture = Picture::all();
         // $picture = Picture::orderBy('product_id')->get();
+        return response()->json([
+            'status' => true,
+            'data' => $picture
+        ]);
+    }
+
+    public function byproduct($id)
+    {
+        $picture = Picture::where('product_id', $id)->get();
         return response()->json([
             'status' => true,
             'data' => $picture
@@ -112,6 +122,18 @@ class PictureController extends Controller
     public function destroy($id)
     {
         //
+        $picture = picture::findOrFail($id);
+        $img = picture::where('id', $id)->first();
+        Storage::disk('public')->delete('img' . '/' . $img->picture_name);
+        $picture->delete();
+
+
+
+        // $picture = Picture::where('id', $id)->get();
+        return response()->json([
+            'message' => 'Image deleted',
+            'data' => $picture
+        ]);
     }
 
     public function storeImage(Request $request, $id)

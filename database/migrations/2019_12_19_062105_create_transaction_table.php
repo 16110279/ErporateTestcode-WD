@@ -16,7 +16,7 @@ class CreateTransactionTable extends Migration
         Schema::create('transaction', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('transaction_code');
-
+            $table->integer('no_meja');
             $table->bigInteger('user_id')->unsigned();
             $table->enum('transaction_status', ['Aktif', 'Selesai'])->default('Aktif');
             $table->decimal('transaction_total', 20, 2);

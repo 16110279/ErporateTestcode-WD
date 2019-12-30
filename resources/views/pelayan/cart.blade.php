@@ -63,11 +63,19 @@
                                                     <hr />
                                                 Rp. {{ $sum }}
                                             </div>
+                                            <br>
                                             <div class="text-center">
                                                     <form action="{{ url('pelayan/cart/checkout') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                                             @csrf
-                                          
-                                            <button class="btn btn-primary">
+                                            <div class="form-group" id="field-product_price">
+                                                                {{-- <label>No Meja</label> --}}
+                                                                <input type="text" class="form-control @error('no_meja') is-invalid @enderror" id="no_meja" name="no_meja" placeholder="No Meja" value="{{old('no_meja')}}">
+                                                                
+                                                                @error('no_meja')
+                                                                <div class='invalid-feedback'>{{ $message }}</div>
+                                                                @enderror
+                                                            </div>
+                                                                    <button class="btn btn-primary">
                                                 Checkout
                                             </button>
                                                     </form>
