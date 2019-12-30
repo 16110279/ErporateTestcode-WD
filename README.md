@@ -15,12 +15,15 @@ Bootstrap 4 <br>
 Ela Admin
 
 # Catatan
+Clone project ini <br>
+Copy .env.example to .env <br>
 composer install<br>
-php artisan key:generate
-php artisan migrate
-php artisan db:seed 
-php artisan passport:install
-php artisan serve
+Make Laravel APP_KEY : php artisan key:generate <br>
+Config your connection (.env) <br>
+Migrate the database : php artisan migrate <br>
+php artisan db:seed <br>
+php artisan passport:install <br>
+php artisan serve <br>
 
 
 ## Beberapa Screenshot : 
